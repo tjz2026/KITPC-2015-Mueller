@@ -11,7 +11,7 @@ Note that for the last dimension (in numpy, the last dimension varies fastest!!!
 """
 
 import numpy as np
-
+from numpy.linalg import inv
 
 __all__ = ["SimBox","BoxShape"]
 
@@ -31,6 +31,7 @@ class SimBox(object):
 
         self.dim = dim
         if dim == 1:
+            print "cell_param",cell_param
             self.__standard_cell_1D(cell_param)
         elif dim == 2:
             self.__standard_cell_2D(cell_param)
@@ -40,6 +41,7 @@ class SimBox(object):
             raise ValueError('Unkonwn dimension for SimBox.')
 
         self.shape = self.__create_shape()
+        print "created simulation box"
 
     def __create_shape(self):
         '''
@@ -76,7 +78,7 @@ class SimBox(object):
         self.x = cp[0]
         self.y = cp[1]
 
-    def __standard_cell_1D(self,cp):
+    def __standard_cell_3D(self,cp):
         if np.size(cp) != 3:
             raise ValueError('3D SimBox requires 3 parameters.')
         self.x = cp[0]
@@ -111,6 +113,7 @@ class BoxShape(object):
                              'of Box cell vector not match')
         self.gg = 2.0 * np.pi * inv(self.m).T
         self.ll = np.sqrt(np.sum(self.m**2,axis=1))
+        print "length size vector",self.ll,self.m 
 
 
     @property
