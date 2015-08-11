@@ -30,6 +30,8 @@ def Fields_Init(chain,chem,grid,field_type,field_param=None):
 
     chem.W[0,:,:,:]=chem.XN*chem.R[1,:,:,:]        
     chem.W[1,:,:,:]=chem.XN*chem.R[0,:,:,:]        
+    #chem.W[0,:,:,:]=chem.XN*0.5        
+    #chem.W[1,:,:,:]=chem.XN*0.5
 
  #   pl.plot(grid.x,chem.R[0,:,0,0])
  #   pl.show()                    

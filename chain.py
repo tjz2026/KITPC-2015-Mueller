@@ -15,11 +15,12 @@ class Chain(object):
 
     '''
 
-    def __init__(self,n_blk,Ns,chain_squence,grid):
+    def __init__(self,n_blk,Ns,chain_squence,N_interpo,grid):
 
         self.n_blk=n_blk
         self.Ns=Ns
         self.blk_ns=Ns/n_blk
+        self.topo=chain_squence
         if chain_squence == "ABn":
             self.blk_f=np.arange(n_blk,dtype=float)
             self.blk_f[:]=1.0/n_blk
@@ -32,6 +33,7 @@ class Chain(object):
             self.blk_sp[1:n_blk+1:2]=1
             self.blk_sta=np.arange(n_blk)
             self.blk_end=np.arange(n_blk)
+            self.intpo=N_interpo
              
         else:
             raise ValueError(' only ABn are considered currently')
@@ -57,6 +59,10 @@ class Chain(object):
         '''
         self.qf=np.zeros((self.Ns+1,len(grid.x),len(grid.y),len(grid.z)))
         self.qb=np.zeros((self.Ns+1,len(grid.x),len(grid.y),len(grid.z)))
+        self.qf1=np.zeros((self.Ns+1,len(grid.x),len(grid.y),len(grid.z)))
+        self.qb1=np.zeros((self.Ns+1,len(grid.x),len(grid.y),len(grid.z)))
+        if self.topo == "ABn":
+            self.qloop=np.zeros(((self.Ns+1)*self.intpo,len(grid.x),len(grid.y),len(grid.z)))
         self.Q=0.0
 
 
